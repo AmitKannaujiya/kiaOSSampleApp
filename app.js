@@ -5,7 +5,15 @@ window.addEventListener("load", function () {
 const softkeyCallback = {
   left: function () { console.log('You click on SoftLeft') },
   center: function () { console.log('You click on Enter') },
-  right: function () { console.log('You click on SoftRight') }
+  right: function () { console.log('You click on SoftRight') },
+  back : function (event) {
+    event.preventDefault();
+    if(confirm('Do you want to exit')) {
+      window.close();
+      return;
+    }
+
+  }
 };
 function handleKeyDown(evt) {
   switch (evt.key) {
@@ -22,6 +30,10 @@ function handleKeyDown(evt) {
     case 'Enter':
       // Action case press center key
       softkeyCallback.center();
+      break;
+
+    case 'Backspace':
+      softkeyCallback.back(evt);
       break;
   }
 };
@@ -103,7 +115,6 @@ window.addEventListener('load', function() {
   window.addEventListener('online',  updateOnlineStatus);
   window.addEventListener('offline', updateOnlineStatus);
 });
-updateOnlineStatus();
 var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 var type = connection.type;
 
